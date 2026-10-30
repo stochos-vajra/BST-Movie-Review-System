@@ -1,0 +1,44 @@
+{% extends "header.html" %}
+{% load static %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'CSS/movie_list.css' %}?v={% now 'U' %}" />
+
+<div class="main-container">
+  <h1 class="page-title">Movies</h1>
+
+  <form action="{% url 'search' %}" method="GET" class="search-form">
+    <input type="text" name="search_movie" placeholder="Search for a movie..." value="{{ query|default:'' }}" />
+    <button type="submit">Search</button>
+  </form>
+
+  {% if op %}
+  <p class="result-label">Search Results:</p>
+  <div class="result-banner">Found {{ op|length }} movie(s)</div>
+
+  {% for i in op %}
+  <div class="movie-card">
+    <img src="{{ i.image.url }}" alt="{{ i.name }}" />
+    <div class="movie-details">
+      <h3 class="movie-title">{{ i.name }} <span class="movie-year">({{ i.year }})</span></h3>
+      {% if i.genre %}<p class="movie-genre">{{ i.genre }}</p>{% endif %}
+      {% if i.description %}<p class="movie-desc">{{ i.description }}</p>{% endif %}
+      <div class="movie-rating"><span class="star">★</span> {{ i.rating }} / 10</div>
+      <a href="#" class="details-btn">View Details</a>
+    </div>
+  </div>
+  {% endfor %}
+  {% endif %}
+
+  <h2 class="section-title">All Movies</h2>
+  <ul class="movie-list">
+    {% for m in op %}
+    <li>
+      <span class="list-name">{{ m.name }}</span>
+      <span class="list-year">{{ m.year }}</span>
+      <span class="chevron">›</span>
+    </li>
+    {% endfor %}
+  </ul>
+</div>
+{% endblock %}

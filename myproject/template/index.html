@@ -1,0 +1,93 @@
+{% extends "header.html" %} {% block content %} {% load static %}
+
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Document</title>
+  <link rel="stylesheet" href="{%static 'CSS/style.css' %}?v={%now 'U'%}" />
+</head>
+
+<body>
+  <div class="header">
+    <h1>Discover <span>Amazing Movies</span></h1>
+    <p>Explore, review and find your next favorite movie.</p>
+    <div class="search">
+      <i class="fa-solid fa-magnifying-glass"></i>
+      <form action="{% url 'search' %}" method="GET" style="
+            display: flex;
+            width: 100%;
+            align-items: center;
+            border: none;
+            background: transparent;
+          ">
+        <i class="fa-solid fa-magnifying-glass"></i>
+
+        <input type="text" name="search_movie" id="search" placeholder="Search for a Movies" />
+
+        <button type="submit">Search</button>
+      </form>
+    </div>
+  </div>
+
+  <div class="container">
+    <h1 id="pop">Popular Movies</h1>
+    <div class="flims">
+      {% for i in data %}
+      <div class="m{{ forloop.counter }}">
+        <a href="{% url 'show' %}">
+          <img src="{{ i.image.url }}" alt="{{ i.name }}" />
+        </a>
+
+
+        <div class="movie-details">
+          <h3 class="movie-title">{{ i.name }}</h3>
+          <span class="movie-year">{{ i.year }}</span>
+          <div class="movie-rating">
+            <span class="star">★</span> {{ i.rating }}
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+
+    <div class="cta-banner">
+      <div class="cta-left">
+        <div class="cta-icon">🎬</div>
+        <div class="cta-text">
+          <h3>Find Your Next Favorite Movie</h3>
+          <p>
+            Use our search to find movies by title. You can also browse
+            through our collection and read real reviews from fellow movie
+            lovers.
+          </p>
+        </div>
+      </div>
+      <a href="#" class="cta-btn">Browse All Movies &rarr;</a>
+    </div>
+
+    <footer class="footer">
+      <div class="footer-brand">
+        <img src="{% static 'images/movie-logo.png' %}" alt="Logo" />
+        <span>MovieReview</span>
+      </div>
+
+      <p class="footer-copyright">
+        &copy; 2026 MovieReview. All rights reserved.
+      </p>
+
+      <div class="footer-links">
+        <a href="#">Home</a>
+        <a href="#">Movies</a>
+        <a href="#">Reviews</a>
+        <span class="dark-mode-icon">🌙</span>
+      </div>
+    </footer>
+  </div>
+
+  {% endblock %}
+</body>
+
+</html>

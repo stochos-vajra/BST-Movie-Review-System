@@ -1,0 +1,33 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="{% static 'CSS/nav.css' %}?v={%now 'U' %}" />
+</head>
+
+<body>
+    <nav>
+        <div class="b1">
+            <img src="{%static 'images/movie-logo.png' %}" alt="" />
+            <h2>Moview Review</h2>
+        </div>
+
+
+
+        <div class="b2">
+            <div class="home"><a href="{%url 'home'%}">Home</a></div>
+            <div class="movie"><a href="{%url 'movies'%}">Movies</a></div>
+            <div class="review">
+                <a href="{%url 'reviews'%}">Reviews</a>
+            </div>
+        </div>
+    </nav>
+
+    {% block content %} {% endblock %}
+</body>
+
+</html>

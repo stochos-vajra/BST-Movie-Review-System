@@ -1,0 +1,56 @@
+{% extends "header.html" %} {% load static %} {% block content %}
+<link rel="stylesheet" href="{%static 'CSS/style.css' %}?v={%now 'U'%}" />
+<div class="page-container">
+  <h1 class="page-title">Reviews</h1>
+
+  <div class="review-layout">
+    <form method="POST" class="review-form">
+      {% csrf_token %}
+      <h2>Write a Review</h2>
+
+      <label for="movie">Movie</label>
+      <select name="movie" id="movie" required>
+        {% for m in movies %}
+        <option value="{{ m.id }}">{{ m.name }}</option>
+        {% endfor %}
+      </select>
+
+      <label for="user">Your Name</label>
+      <input type="text" name="user" id="user" required />
+
+      <label for="rating">Rating (1-10)</label>
+      <input
+        type="number"
+        name="rating"
+        id="rating"
+        min="1"
+        max="10"
+        step="0.1"
+        required
+      />
+
+      <label for="comment">Comment</label>
+      <textarea name="comment" id="comment" rows="4" required></textarea>
+
+      <button type="submit">Submit Review</button>
+    </form>
+
+    <div class="review-list">
+      {% for r in reviews %}
+      <div class="review-card">
+        <div class="review-top">
+          <strong>{{ r.movie.name }}</strong>
+          <span class="movie-rating"
+            ><span class="star">★</span> {{ r.rating }}</span
+          >
+        </div>
+        <p class="review-text">{{ r.comment }}</p>
+        <small>by {{ r.user }}</small>
+      </div>
+      {% empty %}
+      <p class="empty-msg">No reviews yet. Be the first!</p>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+{% endblock %}

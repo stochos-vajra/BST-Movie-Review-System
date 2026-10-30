@@ -1,0 +1,52 @@
+{%extends "header.html" %}{%load static %} {%block content%}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="{% static 'CSS/user.css' %}?v={%now 'U' %}" />
+</head>
+
+<body>
+    <div class="main-container">
+        <h1 class="page-title">Movies</h1>
+
+
+
+        <form action="" method="POST" class="search-form">
+            {% csrf_token %}
+            <!-- <input type="text" name="data" value="" placeholder="Search for a movie..." /> -->
+            <label for="name">Name</label>
+            <input type="text" name="name" id=""><br><br>
+            <label for=" name">Year</label>
+            <input type="text" name="year" id=""><br><br>
+            <label for="name">Genre</label>
+            <input type="text" name="genre" id=""><br><br>
+            <label for=" name">Description</label>
+            <input type="text" name="description" id=""><br><br>
+            <label for=" name">Rating</label>
+            <input type="text" name="rating" id=""><br><br>
+
+
+            <label for="file">Files</label>
+
+            <label class="drop" id="drop" for="file">
+                <strong>Choose files or drop them here</strong>
+                <span>PDF, images, Word, or text</span>
+                <input id="file" type="file" multiple accept=".pdf,.png,.jpg,.jpeg,.doc,.docx,.txt">
+            </label>
+            <button type=" submit">Submit</button>
+        </form>
+
+
+    </div>
+
+
+
+    {%endblock %}
+
+</body>
+
+</html>

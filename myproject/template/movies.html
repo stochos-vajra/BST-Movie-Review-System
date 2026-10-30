@@ -1,0 +1,48 @@
+{% extends "header.html" %} {% load static %} {% block content %}
+
+
+<link rel="stylesheet" href="{% static 'CSS/style.css' %}">
+<div class="page-container">
+  <div class="page-head">
+    <h1 class="page-title">All Movies</h1>
+
+    <form method="GET" action="{% url 'movies' %}" class="filter-bar">
+      <select name="genre">
+        <option value="">All Genres</option>
+        {% for g in genres %}
+        <option value="{{ g }}" {% if g == selected_genre %}selected{% endif %}>{{ g }}</option>
+        {% endfor %}
+      </select>
+
+      <select name="sort">
+<option value="rating" {% if sort == 'rating' %}selected{% endif %}>Top Rated</option>          Top Rated
+        </option>
+        <option value="low" {% if sort == 'low' %}selected{% endif %}>Lowest Rated</option>
+        <option value="name" {% if sort == 'name' %}selected{% endif %}>Name (A-Z)</option>
+        <option value="year" {% if sort == 'year' %}selected{% endif %}>Newest First</option>
+  <option value="old" {% if sort == 'old' %}selected{% endif %}>Oldest First</option>
+      </select>
+
+      <button type="submit">Apply</button>
+    </form>
+  </div>
+
+  <div class="movie-grid">
+    {% for m in movies %}
+    <div class="movie-card">
+      <img src="{{ m.image.url }}" alt="{{ m.name }}" />
+      <div class="movie-details">
+        <h3 class="movie-title">{{ m.name }}</h3>
+        <span class="movie-year">{{ m.year }}</span>
+        <span class="genre-badge">{{ m.genre }}</span>
+        <div class="movie-rating">
+          <span class="star">★</span> {{ m.rating }}
+        </div>
+      </div>
+    </div>
+    {% empty %}
+    <p class="empty-msg">No movies found.</p>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}

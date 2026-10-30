@@ -1,0 +1,25 @@
+{% extends "header.html" %} {% load static %} {% block content %}
+<div class="page-container">
+  <h1 class="page-title">Results for "{{ query }}"</h1>
+
+  <div class="movie-grid">
+    {% for m in results %}
+    <div class="movie-card">
+      <img src="{{ m.image.url }}" alt="{{ m.name }}" />
+      <div class="movie-details">
+        <h3 class="movie-title">{{ m.name }}</h3>
+        <span class="movie-year">{{ m.year }}</span>
+        <span class="genre-badge">{{ m.genre }}</span>
+        <div class="movie-rating">
+          <span class="star">★</span> {{ m.rating }}
+        </div>
+      </div>
+    </div>
+    {% empty %}
+    <p class="empty-msg">No movie found for "{{ query }}".</p>
+    {% endfor %}
+  </div>
+
+  <a href="{% url 'home' %}" class="back-link">&larr; Back to Home</a>
+</div>
+{% endblock %}
